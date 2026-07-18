@@ -238,7 +238,11 @@ export default function ExamPage() {
             {test.title}
           </h1>
           <p className="text-slate-600 mb-6">
-            You are about to begin a 3-hour, 180-question MDCAT mock test.
+            You are about to begin a{" "}
+            {test.durationSeconds
+              ? `${Math.round(test.durationSeconds / 60)}-minute`
+              : "3-hour"}
+            , {test.totalQuestions ?? 180}-question MDCAT mock test.
           </p>
 
           <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6 text-sm space-y-2">
@@ -287,6 +291,7 @@ export default function ExamPage() {
       questions={questions}
       initialAnswers={attempt.answers}
       startedAt={attempt.startedAt}
+      durationSeconds={test.durationSeconds}
     />
   );
 }

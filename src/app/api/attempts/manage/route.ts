@@ -11,7 +11,7 @@ import {
   calculateScore,
   createEmptyAnswers,
 } from "@/lib/questions";
-import { TestAttempt, TestAnswer, EXAM_DURATION_SECONDS } from "@/lib/types";
+import { TestAttempt, TestAnswer, EXAM_DURATION_SECONDS, TOTAL_QUESTIONS } from "@/lib/types";
 
 export async function POST(request: NextRequest) {
   try {
@@ -71,6 +71,8 @@ export async function POST(request: NextRequest) {
         return NextResponse.json({ error: message }, { status: 403 });
       }
 
+      const testTotalQuestions = test.totalQuestions ?? TOTAL_QUESTIONS;
+
       const attempt: TestAttempt = {
         rollNumber: student.rollNumber,
         testId,
@@ -78,11 +80,11 @@ export async function POST(request: NextRequest) {
         startedAt: new Date().toISOString(),
         submittedAt: null,
         timeTakenSeconds: 0,
-        answers: createEmptyAnswers(),
+        answers: createEmptyAnswers(testTotalQuestions),
         score: 0,
         correct: 0,
         wrong: 0,
-        unattempted: 180,
+        unattempted: testTotalQuestions,
         percentage: 0,
       };
 
@@ -103,7 +105,7 @@ export async function POST(request: NextRequest) {
         ...existing,
         status: autoSubmitReason ? "auto_submitted" : "completed",
         submittedAt: new Date().toISOString(),
-        timeTakenSeconds: timeTakenSeconds ?? EXAM_DURATION_SECONDS,
+        timeTakenSeconds: timeTakenSeconds ?? (test.durationSeconds ?? EXAM_DURATION_SECONDS),
         answers: finalAnswers,
         score: result.score,
         correct: result.correct,

@@ -32,7 +32,7 @@ export function ScoreReport({
 
   const stats = [
     {
-      label: "Total Score (out of 180)",
+      label: `Total Score (out of ${questions.length})`,
       value: attempt.score,
       icon: Trophy,
       color: "text-gold-500 bg-gold-50",

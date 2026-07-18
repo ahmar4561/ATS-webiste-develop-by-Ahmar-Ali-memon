@@ -137,7 +137,7 @@ export default function MeritPage() {
                       Test
                     </th>
                   )}
-                  <th className="pb-3 pr-4 font-medium">Score / 180</th>
+                  <th className="pb-3 pr-4 font-medium">Score</th>
                   <th className="pb-3 pr-4 font-medium hidden sm:table-cell">
                     %
                   </th>

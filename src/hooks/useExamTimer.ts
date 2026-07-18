@@ -9,6 +9,8 @@ interface UseExamTimerOptions {
   startedAt: string | null;
   onTimeout: () => void;
   isActive: boolean;
+  /** Exam length in seconds. Defaults to the platform-wide 3-hour format. */
+  durationSeconds?: number;
 }
 
 /**
@@ -26,9 +28,10 @@ export function useExamTimer({
   startedAt,
   onTimeout,
   isActive,
+  durationSeconds = EXAM_DURATION_SECONDS,
 }: UseExamTimerOptions) {
   const startMs = startedAt ? new Date(startedAt).getTime() : Date.now();
-  const deadlineMs = startMs + EXAM_DURATION_SECONDS * 1000;
+  const deadlineMs = startMs + durationSeconds * 1000;
 
   const computeRemaining = () =>
     Math.max(0, Math.round((deadlineMs - Date.now()) / 1000));
@@ -69,7 +72,7 @@ export function useExamTimer({
   }, [isActive, deadlineMs]);
 
   const elapsed = Math.min(
-    EXAM_DURATION_SECONDS,
+    durationSeconds,
     Math.max(0, Math.round((Date.now() - startMs) / 1000))
   );
   const formatted = formatTime(remaining);

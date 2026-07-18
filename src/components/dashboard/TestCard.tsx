@@ -130,7 +130,10 @@ export function TestCard({
           </span>
           <span className="flex items-center gap-1.5">
             <Clock className="w-4 h-4 text-emerald-500" />
-            3 Hours · 180 MCQs
+            {test.durationSeconds
+              ? `${Math.round(test.durationSeconds / 60)} Minutes`
+              : "3 Hours"}{" "}
+            · {test.totalQuestions ?? 180} MCQs
           </span>
         </div>
 

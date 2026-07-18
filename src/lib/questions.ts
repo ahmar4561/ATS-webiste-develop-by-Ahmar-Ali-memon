@@ -210,14 +210,14 @@ export function calculateScore(
     };
   });
 
-  const maxScore = TOTAL_QUESTIONS * MARKS_CORRECT;
+  const maxScore = questions.length * MARKS_CORRECT;
   const percentage = Math.max(0, (score / maxScore) * 100);
 
   return { score, correct, wrong, unattempted, percentage, breakdown };
 }
 
-export function createEmptyAnswers(): TestAnswer[] {
-  return Array.from({ length: TOTAL_QUESTIONS }, (_, i) => ({
+export function createEmptyAnswers(count: number = TOTAL_QUESTIONS): TestAnswer[] {
+  return Array.from({ length: count }, (_, i) => ({
     questionId: i + 1,
     selectedIndex: null,
   }));

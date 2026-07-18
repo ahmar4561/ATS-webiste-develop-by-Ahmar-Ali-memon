@@ -144,6 +144,10 @@ export const TESTS: TestDefinition[] = [
       physics:
         "Complete Physics MDCAT Syllabus Review: Vectors & Equilibrium, Force & Motion, Work & Energy, Rotational & Circular Motion, Fluid Dynamics, Waves, Thermodynamics, Electrostatics, Current Electricity, Electromagnetism, Electromagnetic Induction, Alternating Current, Electronics, Dawn of Modern Physics, Atomic Spectra, Nuclear Physics",
     },
+    // Physics-only test: 100 MCQs in 100 minutes (instead of the usual
+    // 180 MCQs / 3 hours).
+    durationSeconds: 100 * 60,
+    totalQuestions: 100,
   },
   {
     id: "mega-physical",

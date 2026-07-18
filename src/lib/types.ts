@@ -75,6 +75,13 @@ export interface TestDefinition {
   pastPaperUrl?: string;
   /** Optional short label for the download button, e.g. "Question Paper + Answer Key". */
   pastPaperLabel?: string;
+  /**
+   * Override the default 3-hour / 180-question exam format for this
+   * specific test (e.g. a shorter single-subject test). Leave undefined
+   * to use the platform defaults (EXAM_DURATION_SECONDS / TOTAL_QUESTIONS).
+   */
+  durationSeconds?: number;
+  totalQuestions?: number;
 }
 
 export interface SyllabusBreakdown {

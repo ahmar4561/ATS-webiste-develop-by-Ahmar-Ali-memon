@@ -25,6 +25,8 @@ interface ExamInterfaceProps {
   questions: Question[];
   initialAnswers: TestAnswer[];
   startedAt: string | null;
+  /** Exam length in seconds. Defaults to the platform-wide 3-hour format. */
+  durationSeconds?: number;
 }
 
 export function ExamInterface({
@@ -35,6 +37,7 @@ export function ExamInterface({
   questions,
   initialAnswers,
   startedAt,
+  durationSeconds = EXAM_DURATION_SECONDS,
 }: ExamInterfaceProps) {
   const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -50,7 +53,7 @@ export function ExamInterface({
       setIsSubmitting(true);
       setIsFrozen(true);
 
-      const timeTaken = elapsed ?? EXAM_DURATION_SECONDS;
+      const timeTaken = elapsed ?? durationSeconds;
 
       await fetch("/api/attempts/manage", {
         method: "POST",
@@ -67,13 +70,14 @@ export function ExamInterface({
 
       router.push(`/results/${testId}`);
     },
-    [isSubmitting, rollNumber, testId, answers, router]
+    [isSubmitting, rollNumber, testId, answers, router, durationSeconds]
   );
 
   const { formatted, elapsed, isLow, isCritical } = useExamTimer({
     startedAt,
-    onTimeout: () => submitTest("timeout", EXAM_DURATION_SECONDS),
+    onTimeout: () => submitTest("timeout", durationSeconds),
     isActive: !isFrozen && !isSubmitting,
+    durationSeconds,
   });
 
   const saveProgressRef = useRef({ answers, elapsed, isFrozen, rollNumber, testId });
