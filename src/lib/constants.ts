@@ -201,7 +201,7 @@ export const TESTS: TestDefinition[] = [
     date: "2026-08-09",
     mode: "physical",
     isSunday: true,
-    externalRegistrationUrl: "https://forms.gle/DUMMY-DADU-FORM-LINK",
+    externalRegistrationUrl: "https://forms.gle/vfeKTTXbUJnMfky87",
     registrationNote:
       "Fully Online Test — Fee: Rs. 200. Specially organized for Dadu city, but students from all over Pakistan can appear. Register using the Google Form below.",
     syllabus: {
