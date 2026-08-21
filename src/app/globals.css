@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-slate-50 text-navy-900 antialiased;
+  }
+}
+
+@layer utilities {
+  .gradient-hero {
+    background: linear-gradient(135deg, #0F172A 0%, #1E293B 50%, #0F172A 100%);
+  }
+
+  .gradient-emerald {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, #059669, #D97706);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glass {
+    @apply bg-white/80 backdrop-blur-lg border border-white/20;
+  }
+}
+
+/* Exam mode - prevent text selection */
+.exam-mode {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.exam-mode input,
+.exam-mode label {
+  user-select: auto;
+  -webkit-user-select: auto;
+}
+
+/* Scrolling developer-credit marquee in footer */
+.marquee-track {
+  width: max-content;
+  animation: marquee-scroll 28s linear infinite;
+}
+
+@keyframes marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/*
+ * Result PDF download: students click "Download PDF" on their results
+ * page, which calls window.print(). The browser's own "Save as PDF"
+ * destination then produces the PDF -- no extra library needed. These
+ * rules make the printed/saved page show ONLY the result card (hiding
+ * site header, footer, WhatsApp float button, and all on-page action
+ * buttons that don't make sense in a saved document).
+ */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  #printable-result,
+  #printable-result * {
+    visibility: visible;
+  }
+
+  #printable-result {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+}
